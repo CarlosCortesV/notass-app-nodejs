@@ -1,0 +1,17 @@
+{{#if error}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{error}}
+    <button type="button" class="close" data-bs-dismiss ="alert" aria-label="Close">
+        <span arial-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/if}}    
+
+{{#each errors}} {{!es un bucle que recorre el array errors}} 
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="close" data-bs-dismiss ="alert" aria-label="Close">
+        <span arial-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/each}}

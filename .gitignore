@@ -1,0 +1,3 @@
+# Ignorar estos archivos sensibles o de desarrollo
+.env
+node_modules
