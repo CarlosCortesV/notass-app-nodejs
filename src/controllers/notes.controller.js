@@ -19,11 +19,14 @@ notesCtrl.renderNotes = async(req, res) => {
     const notes = await Note.find({user: req.user.id}).sort({createdAt:"desc"}) //Busco las notas por el id del usuario y las ordeno por fecha de creacion
     res.render("notes/all-notes", {notes}); //Renderizo la vista con el array de notas
 };
-notesCtrl.renderEditNote = async (req, res) => {
-   const note = await Note.findById(req.params.id); //Busco la nota por el id
- 
-    res.render("notes/edit-note", {note});
-};
+export const renderEditForm = async (req, res) => {
+    const note = await Note.findById(req.params.id).lean();
+    if (note.user != req.user.id) {
+      req.flash("error_msg", "Not Authorized");
+      return res.redirect("/notes");
+    }
+    res.render("notes/edit-note", { note });
+  };
 notesCtrl.updateEditNote = async (req, res) => {
     const {title, description} = req.body; //Asigno los valores del objeto a las variables title y description
     console.log(req.body); //Imprime el objeto que se envia por post, en este caso el objeto que contiene el titulo y el contenido
